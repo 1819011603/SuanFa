@@ -1,0 +1,64 @@
+import java.util.Scanner;
+
+// 最长回文字串
+public class Main{
+    public static String longestHuiWen(String text){
+        StringBuffer reverse = new StringBuffer();
+        String result = "";
+        String sub = "";
+        char[] chars = text.toCharArray();
+        int len = text.length();
+        for (int i = len-1; i >= 0; i--){
+            reverse.append(chars[i]);
+        }
+        String s = reverse.toString();
+        System.out.println(s);
+        if (text.equals(s)){
+            return text;
+        }
+        for (int i = 0; i < len+1; i++){
+            for (int j = i+1; j <= len; j++){
+                if (!text.contains(s.substring(i,j))){
+                    sub = s.substring(i,j-1);
+                    if (result.length() <= sub.length()){
+                        result = sub;
+                    }
+                    break;
+                }else {
+                    if (j == len){
+                        sub = s.substring(i);
+                        if (result.length() <= sub.length()){
+                            result = sub;
+                        }
+                        break;
+                    }
+                }
+
+            }
+
+            if (len-i-1 < result.length()){
+                break;
+            }
+        }
+        if (sub.length() >= result.length()){
+            result = sub;
+        }
+
+        return result;
+    }
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        String text;
+        while (in.hasNext()){
+            text = in.next();
+            if (text.equals("exit")){
+                in.close();
+                break;
+            }
+        text = longestHuiWen(text);
+            System.out.println("result: " + text);
+
+        }
+    }
+}
