@@ -1,0 +1,47 @@
+
+
+import java.util.Scanner;
+
+// 最长不重复子串
+public class Main{
+    public static String lengthOfLongestSubstring(String text){
+        String sub_String  =  "",result = "";
+        char[] chars = text.toCharArray();
+
+        int len = chars.length;
+        for (int i = 0; i < len; i++){
+            if (!sub_String.contains(String.valueOf(chars[i]))){
+                sub_String += String.valueOf(chars[i]);
+            }
+            else {
+                if (sub_String.length() >= result.length()){
+                    result = sub_String;
+                }
+                i -= sub_String.length();
+                if (len - i -1 < result.length()){
+                    break;
+                }
+                sub_String = "";
+            }
+        }
+        if (sub_String.length() >= result.length()){
+            result = sub_String;
+        }
+        System.out.println("result: " + result);
+        return result;
+    }
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        String text;
+        while (in.hasNext()){
+            text = in.next();
+            if (text.equals("exit")){
+                in.close();
+                break;
+            }
+            lengthOfLongestSubstring(text);
+
+        }
+    }
+}
